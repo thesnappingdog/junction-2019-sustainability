@@ -1,10 +1,11 @@
 from requests.auth import AuthBase
+from config import KESKOConfig
 import requests
 import json
 
 class KAuth(AuthBase):
-    def __init__(self, key):
-        self.key = key
+    def __init__(self):
+        self.key = KESKOConfig.KESKO_PRIMARY_KEY
 
     def __call__(self, r):
         r.headers['Ocp-Apim-Subscription-Key'] = self.key
@@ -13,9 +14,8 @@ class KAuth(AuthBase):
 
 def get_recipe(recipe_id, main_category="4", sub_category="28"):
     recipe_url = 'https://kesko.azure-api.net/v1/search/recipes'
-    key = "6f9320c4ee544173af84a9e0b561bf0a"
     body = {'filters' : {'mainCategory': main_category, 'subCategory': sub_category}}
-    recipes_response = requests.post(recipe_url, json=body, auth=KAuth(key))
+    recipes_response = requests.post(recipe_url, json=body, auth=KAuth())
     recipes_response_text = recipes_response.text
     recipes_response_json = json.loads(recipes_response_text)
     recipe = recipes_response_json['results'][recipe_id]
@@ -38,9 +38,8 @@ def parse_ingredients(ingredients):
     
 def get_items_for_item_type(item_type):
     products_url = 'https://kesko.azure-api.net/v1/search/products'
-    key = "6f9320c4ee544173af84a9e0b561bf0a"
     body = {'filters' : {'ingredientType': item_type}}
-    items_response = requests.post(products_url, json=body, auth=KAuth(key))
+    items_response = requests.post(products_url, json=body, auth=KAuth())
     items_json = json.loads(items_response.text)
     return items_json['results']
 
@@ -56,7 +55,7 @@ def parse_items(items):
 def get_stores(zip_code = '00180'):
     store_url = 'https://kesko.azure-api.net/v1/search/stores'
     body = {'filters' : {'postCode': zip_code}}
-    stores_response = requests.post(store_url, json=body, auth=KAuth(key))
+    stores_response = requests.post(store_url, json=body, auth=KAuth())
     stores_json = json.loads(stores_response.text)
     return stores_json['results']
 
@@ -70,9 +69,8 @@ def parse_stores(stores):
     return parsed_stores
 
 def check_availability(ean, store):
-    key = "6f9320c4ee544173af84a9e0b561bf0a"
     availability_url = 'https://kesko.azure-api.net/v2/products?ean=' + ean
-    availability_response = requests.get(availability_url, auth=KAuth(key))
+    availability_response = requests.get(availability_url, auth=KAuth())
     availability_json = json.loads(availability_response.text)
     availability_stores = availability_json[0]['stores']
     for a_store in availability_stores:
