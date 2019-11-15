@@ -77,3 +77,21 @@ def check_availability(ean, store):
         if a_store['id'] == store['id']:
             return True
     return False
+
+def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
+    stores = parse_stores(get_stores(zip_code))
+    recipe_name, recipe_ingredients, recipe_instructions, recipe_image = get_recipe(recipe_id)
+    parsed_ingredients = parse_ingredients(recipe_ingredients)
+    rich_ingredients = []
+    for ingredient in parsed_ingredients:
+        available = 1
+        if not ingredient['type'] in existing_ingredient_types:
+            available = 0
+            items = parse_items(get_items_for_item_type(ingredient['type']))
+            for item in items:
+                for store in stores:
+                    if check_availability(item['ean'],store):
+                        available = 1
+        ingredient['availability'] = available
+        rich_ingredients.append(ingredient)
+    return recipe_name, rich_ingredients, recipe_instructions, recipe_image
