@@ -1,8 +1,8 @@
 from app import app
+from flask import send_file
 
 
 @app.route('/')
-@app.route('/index')
 def index():
-    return "Hello, this is your backend"
+    return send_file('../frontend/dist/index.html', mimetype='text/html')
 
