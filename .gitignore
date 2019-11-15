@@ -107,5 +107,6 @@ venv.bak/
 app.db
 venv.sh
 .idea/
-contentapp.iml
+.DS_Store
 
+webapp/.DS_Store
