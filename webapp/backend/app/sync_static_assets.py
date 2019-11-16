@@ -103,7 +103,6 @@ def drop_and_sync_ingredients():
 
 
 def drop_and_sync_everything():
-    db.drop_all()
     db.create_all()
 
     recipes = load_recipes()
