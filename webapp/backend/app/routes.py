@@ -10,9 +10,9 @@ def angular_index():
     return send_from_directory(FRONTEND_DIST_DIR, 'index.html')
 
 
-@app.route('/api/get_rich_recipe', methods=['GET'])
-def rich_recipe():
-    name, ingredients, instructions, image = get_rich_recipe('00100', 1, [])
+@app.route('/api/get_rich_recipe/<recipe_id>', methods=['GET'])
+def rich_recipe(recipe_id):
+    name, ingredients, instructions, image = get_rich_recipe('00100', int(recipe_id), [])
     return jsonify({
         'name': name,
         'ingredients': ingredients,
