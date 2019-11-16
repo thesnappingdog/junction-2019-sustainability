@@ -12,3 +12,4 @@ export class Recipe {
       this.ingredients.push(Ingredient.fromJSON(obj))
     });
   }
+}
