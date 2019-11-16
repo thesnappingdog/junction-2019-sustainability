@@ -80,10 +80,11 @@ def deploy(args):
     raise NotImplementedError('Deploy not implemented')
 
 def cleanup(args):
-    running_containers = client.containers.list()
-    for running_cont in running_containers:
+    for running_cont in client.containers.list():
         running_cont.remove(force=True)
     client.containers.prune()  # Clean stopped containers
+    for volume in client.volumes.list():
+        volume.remove(force=True)
 
 def call_action(action_name, args):
     possibles = globals().copy()
