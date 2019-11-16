@@ -72,6 +72,12 @@ def parse_stores(stores):
     return parsed_stores
 
 
+def stores_output(zipcode):
+    stores = get_stores(zipcode)
+    stores_output = parse_stores(stores)
+    return stores_output
+
+
 def request_availability(ean):
     params = {'ean': ean}
     availability_response = requests.get(KESKOConfig.PRODUCTS_URL_V2, params=params, auth=KAuth())
