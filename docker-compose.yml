@@ -2,6 +2,10 @@ version: "3.7"
 services:
   postgres:
     image: junkkari/possu
+    volumes:
+      # Store Postgres data on host's filesystem in `~/postgres/data`,
+      # in order to avoid it being wiped out when container is redeployed.
+      - "postgres-data:/var/lib/postgresql/data"
     deploy:
       placement:
         constraints: [node.role == manager]
