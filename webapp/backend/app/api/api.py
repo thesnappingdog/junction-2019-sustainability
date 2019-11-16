@@ -48,9 +48,11 @@ def parse_ingredients(ingredients):
 
 def get_items_for_item_type(item_type):
     products_url = KESKOConfig.PRODUCTS_URL
+    print("item type", item_type)
     body = {'filters': {'ingredientType': item_type}}
     items_response = requests.post(products_url, json=body, auth=KAuth())
     items_json = json.loads(items_response.text)
+    print("json", items_json)
     return items_json['results']
 
 
@@ -161,15 +163,19 @@ def return_rich_inferred_recipes(items):
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
     stores = parse_stores(get_stores(zip_code))
-    recipe_name, recipe_ingredients, recipe_instructions, recipe_image = get_recipe(recipe_id) #Get from DB
-    parsed_ingredients = parse_ingredients(recipe_ingredients)
+    recipe = Recipe.query.filter_by(recipe_id=recipe_id).first()
+    recipe_name = str(recipe.name)
+    recipe_instructions = str(recipe.instructions)
+    recipe_image = str(recipe.image)
     rich_ingredients = []
-    for ingredient in parsed_ingredients:
+    for ingredient in recipe.ingredients:
+        rich_ingredient = {}
         available_in_store = 0
         available_store_name = 'none'
         own = 0
-        if not ingredient['type'] in existing_ingredient_types:
-            items = parse_items(get_items_for_item_type(ingredient['type']))
+        print("ing", ingredient.ingredient_id)
+        if not ingredient.ingredient_id in existing_ingredient_types:
+            items = parse_items(get_items_for_item_type(ingredient.ingredient_id))
             for item in items:
                 for store in stores:
                     if is_product_available(item['ean'], store):
@@ -178,8 +184,9 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
         else:
             own = 1
 
-        ingredient['availability'] = available_in_store
-        ingredient['available_store_name'] = available_store_name
-        ingredient['own'] = own
-        rich_ingredients.append(ingredient)
+        rich_ingredient['availability'] = available_in_store
+        rich_ingredient['available_store_name'] = available_store_name
+        rich_ingredient['own'] = own
+        rich_ingredient['name'] = ingredient.name
+        rich_ingredients.append(rich_ingredient)
     return recipe_name, rich_ingredients, recipe_instructions, recipe_image
