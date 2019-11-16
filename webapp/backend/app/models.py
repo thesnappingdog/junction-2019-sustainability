@@ -29,6 +29,11 @@ class Recipe(db.Model):
         else:
             return f'Recipe {self.recipe_id} already exists'
 
+    def associate_ingredients_to_recipe(self, new_ingredients):
+        for ingredient in new_ingredients:
+            self.ingredients.append(ingredient)
+            db.session.commit()
+
     def __repr__(self):
         return f'<Id: {self.recipe_id } Recipe name is {self.name}'
 
