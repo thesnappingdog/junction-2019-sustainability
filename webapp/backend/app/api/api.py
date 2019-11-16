@@ -6,6 +6,8 @@ import random
 import numpy as np
 from app.inference.classifier import Classifier
 import torch
+from app import db
+from app.models import Recipe, Ingredient, recipe_ingredients
 
 
 class KAuth(AuthBase):
@@ -93,14 +95,16 @@ def request_availability(ean):
     availability_stores = availability_json[0]['stores']
     return availability_stores
 
+
 def default_items():
     items = ['5286', '7191', '6807', '6932', '7532', '8116', '6269', '6751', '6517']
     item_dicts = []
     for item in items:
-        item_dict = {}
-        item_dict['id'] = item
-        item_dict['name'] = "dummy name" #Get this from DB
-        item_dict['image_url'] = "dummy.png" #Get this from DB
+        ingredient = Ingredient.query.filter_by(ingredient_id=item).first()
+        item_dict = {
+            'id': ingredient.ingredient_id,
+            'name': ingredient.name
+        }
         item_dicts.append(item_dict)
     return item_dicts
 
@@ -115,6 +119,7 @@ def check_availability(availability_stores, store):
 def is_product_available(ean, store):
     availability_stores = request_availability(ean)
     return check_availability(availability_stores, store)
+
 
 def infer_recipes(items, count=5):
     if items:
@@ -138,6 +143,21 @@ def infer_recipes(items, count=5):
 
     return np.unique(suggestions).tolist()
 
+
+def return_rich_inferred_recipes(items):
+    inferred_items = infer_recipes(items)
+    recipes = []
+    for i in inferred_items:
+        recipe = Recipe.query.filter_by(order_id=i).first()
+        recipes.append({
+            'order_id': str(recipe.order_id),
+            'recipe_id': str(recipe.recipe_id),
+            'name': str(recipe.name),
+            'image': str(recipe.image),
+            'instructions': str(recipe.instructions),
+            'ingredients': str(recipe.ingredients)
+        })
+    return recipes
 
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):

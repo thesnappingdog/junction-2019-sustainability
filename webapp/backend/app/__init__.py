@@ -10,4 +10,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app import routes, models, sync_static_assets
-sync_static_assets.drop_and_sync_everything()
+#recreate_db = sync_static_assets.drop_and_sync_everything()
