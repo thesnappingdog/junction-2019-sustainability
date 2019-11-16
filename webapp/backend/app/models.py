@@ -1,5 +1,5 @@
 from app import db
-from flask_sqlalchemy import orm
+
 
 recipe_ingredients = db.Table('recipe_ingredients',
                               db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'), primary_key=True),
