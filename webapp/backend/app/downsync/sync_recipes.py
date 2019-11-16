@@ -1,9 +1,11 @@
 import csv
+import os
 from ast import literal_eval
-
+from config import Config
 
 def load_recipe_csv():
-    with open('app/downsync/source/recipe_data.csv', 'r') as source_csv:
+    csv_path = os.path.join(Config.BASE_DIR, 'app/downsync/source/recipe_data.csv')
+    with open(csv_path, 'r') as source_csv:
         raw_recipe_data = list(csv.DictReader(source_csv))
     return raw_recipe_data
 

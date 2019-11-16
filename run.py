@@ -60,7 +60,7 @@ def run(args):
         service_tag = 'junkkari/' + service_name
         params = ['docker', 'run', '-d'] 
         if service_name == 'possu':
-            params += ['-p', '5433:5432']
+            params += ['-p', '5432:5432']
         elif service_name == 'webapp':
             params += ['-p', '80:80']
         params.append(service_tag)

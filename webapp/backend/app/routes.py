@@ -28,8 +28,14 @@ def rich_recipe_json(recipe_id):
 )
 
 # Route for requesting recipes based on items of user
-@app.route('/api/recipe_suggestions/<items>', methods=['GET']) #Change this to POST and payload in the body once working frontend
-def infer_recipes_json(items):
+@app.route('/api/recipe_suggestions', methods=['POST']) #Change this to POST and payload in the body once working frontend
+def infer_recipes_json():
+    params = request.get_json(force=True)  # Ignore the mimetype and always try to parse JSON
+    items = []
+    if 'ingredients' in params:
+        for ingredient in params['ingredients']:
+            if 'id' in ingredient and :
+                items.append(int(ingredient['id']))
     recipes = return_rich_inferred_recipes(items)
     return jsonify({'data': recipes})
 
@@ -38,13 +44,13 @@ def infer_recipes_json(items):
 @app.route('/api/get_stores/<zip_code>', methods=['GET'])
 def store_json(zip_code):
     stores = stores_output(zip_code)
-    return jsonify({'data': [stores]})
+    return jsonify({'data': stores})
 
 # Route for getting current ingredients of user
 @app.route('/api/possibly_remaining_ingredients/', methods=['GET'])
 def items_json():
     items = default_items()
-    return jsonify({'data': [items]})
+    return jsonify({'data': items})
 
 
 @app.route('/downsync/recreate', methods=['GET'])

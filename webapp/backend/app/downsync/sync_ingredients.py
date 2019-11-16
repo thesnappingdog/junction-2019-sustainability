@@ -1,8 +1,10 @@
 import csv
-
+import os
+from config import Config
 
 def load_ingredient_csv():
-    with open('app/downsync/source/ingredients_data.csv', 'r') as source_csv:
+    csv_path = os.path.join(Config.BASE_DIR, 'app/downsync/source/ingredients_data.csv')
+    with open(csv_path, 'r') as source_csv:
         raw_ingredient_data = list(csv.DictReader(source_csv))
     return raw_ingredient_data
 

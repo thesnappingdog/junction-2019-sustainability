@@ -1,6 +1,8 @@
+import os
 import torch
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.nn as nn
+from config import Config
 
 class Classifier(nn.Module):
     def __init__(self, embedding_size=20000, hidden_size=128, output_size=7443):
@@ -28,9 +30,10 @@ class Classifier(nn.Module):
 
     def load_trained(self):
         inference_filename = 'app/inference/model.pth'
+        inference_filepath = os.path.join(Config.BASE_DIR, inference_filename)
         device = 'cpu'
-        self.load_state_dict(torch.load(inference_filename, map_location=lambda storage, loc: storage))
-        print('Classifier loaded from %s.' % inference_filename)
+        self.load_state_dict(torch.load(inference_filepath, map_location=lambda storage, loc: storage))
+        print('Classifier loaded from %s.' % inference_filepath)
         self = self.to(device)
         self.eval()
 
