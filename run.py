@@ -2,7 +2,9 @@
 import os
 import subprocess
 import argparse
-from enum import Enum
+import docker
+
+client = docker.from_env()
 
 # Shell output styling
 _r = '\033[91m' # Red
@@ -20,7 +22,9 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 ACTIONS = [
     'build',
-    'compose'
+    'compose',
+    'deploy',
+    'cleanup'
 ]
 
 SERVICES = [
@@ -50,6 +54,20 @@ def build(args):
 
 def compose(args):
     os.system('docker-compose up')
+
+def deploy(args):
+    # TODO: Ensure docker-machine is set to prod machine
+    # TODO: Pull latest from github
+    os.system('git checkout master')  # Change to master branch
+    build('all')
+    # TODO: P
+    raise NotImplementedError('Deploy not implemented')
+
+def cleanup(args):
+    running_containers = client.containers.list()
+    for running_cont in running_containers:
+        running_cont.remove(force=True)
+    client.containers.prune()  # Clean stopped containers
 
 def call_action(action_name, args):
     possibles = globals().copy()

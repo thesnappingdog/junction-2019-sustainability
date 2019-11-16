@@ -1,19 +1,26 @@
 Junction project directory
 
-# Setup
+## Setup
 
-Add execution permissions to **run.py**:
+1. Add execution permissions to **run.py**: \
   `chmod +x run.py`
 
-## Building containers
+2. Install **run.py** dependencies: \
+  `pip install run_requirements.txt`
 
-All containers: \
+## Building, running etc.
+
+Build all containers: \
   `./run.py build`
 
-Specific containers (comma-separated): \
+Build specific containers (comma-separated): \
   `./run.py build --services=webapp`
 
-## Running locally (docker-compose up)
+Run containers: \
+  `./run.py compose` or `docker-compose up`
 
-No options currently:
-  `./run.py compose`
+Check running containers: \
+  `docker ps`
+
+Clean up (remove running containers etc.): \
+  `./run.py cleanup`
