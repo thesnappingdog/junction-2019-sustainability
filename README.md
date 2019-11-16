@@ -17,7 +17,11 @@ Build specific containers (comma-separated): \
   `./run.py build --services=webapp`
 
 Run containers: \
-  `./run.py compose` or `docker-compose up`
+  `./run.py run --services=possu`
+
+Run whole system: \
+  `./run.py compose` or `docker-compose up` \
+then open [http://localhost:80](http://localhost:80)
 
 Check running containers: \
   `docker ps`
