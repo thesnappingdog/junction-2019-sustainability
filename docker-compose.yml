@@ -1,11 +1,21 @@
 version: "3.7"
 services:
+  postgres:
+    image: junkkari/possu
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: any
+    ports:
+      - "5432:5432"
   webapp:
     image: junkkari/webapp
-    deploy: 
-      # placement:
-      #   constraints: [node.role == worker]
+    deploy:
+      placement:
+        constraints: [node.role == worker]
       restart_policy:
         condition: any
     ports:
       - "80:80"
+

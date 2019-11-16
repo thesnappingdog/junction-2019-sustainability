@@ -7,16 +7,17 @@ import docker
 client = docker.from_env()
 
 # Shell output styling
-_r = '\033[91m' # Red
-_g = '\033[92m' # Green
-_b = '\033[94m' # Blue
-_y = '\033[93m' # Yellow
-_p = '\033[95m' # Purple
-_E = '\033[0m'  # End style
+_r = '\033[91m' # Foreground: Red
+_g = '\033[92m' # Foreground: Green
+_b = '\033[94m' # Foreground: Blue
+_y = '\033[93m' # Foreground: Yellow
+_p = '\033[95m' # Foreground: Purple
+_e = '\033[39m' # Foreground: End
 _O = '\033[2m'  # Opaque
 _B = '\033[1m'  # Bold
 _I = '\033[3m'  # Italic
 _U = '\033[4m'  # Underline
+_E = '\033[0m'  # End all styling
 
 PROJECT_ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -28,6 +29,7 @@ ACTIONS = [
 ]
 
 SERVICES = [
+    'possu',
     'webapp'
 ]
 
@@ -48,7 +50,7 @@ def build(args):
     for service_name in get_service_names_arr(args):
         service_dir = PROJECT_ROOT_DIR + '/' + service_name
         service_tag = 'junkkari/' + service_name
-        print(f"Building {service_name} ...")
+        print(f"{_I+_O}Building {_p + service_name + _e} ...{_E}")
         params = ['docker', 'build', '--tag', service_tag, service_dir]
         subprocess.call(params)
 
@@ -56,11 +58,11 @@ def compose(args):
     os.system('docker-compose up')
 
 def deploy(args):
-    # TODO: Ensure docker-machine is set to prod machine
+    # TODO: Ensure docker-machine is set to prod machine!
     # TODO: Pull latest from github
-    os.system('git checkout master')  # Change to master branch
-    build('all')
-    # TODO: P
+    # os.system('git checkout master')  # Change to master branch
+    # build('all')
+    # TODO: Deployment
     raise NotImplementedError('Deploy not implemented')
 
 def cleanup(args):
