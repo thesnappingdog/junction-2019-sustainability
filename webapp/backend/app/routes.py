@@ -14,7 +14,6 @@ def angular_index():
 @app.route('/api/get_rich_recipe/<recipe_id>', methods=['GET'])
 def rich_recipe_json(recipe_id):
     name, ingredients, instructions, image = get_rich_recipe('00100', int(recipe_id), [])
-    return jsonify({
     return jsonify({'data': {
         'id': recipe_id,
         'name': name,
@@ -35,14 +34,12 @@ def infer_recipes_json(items):
 @app.route('/api/get_stores/<zip_code>', methods=['GET'])
 def store_json(zip_code):
     stores = stores_output(zip_code)
-    return jsonify(stores)
     return jsonify({'data': [stores]})
 
 # Route for getting current ingredients of user
 @app.route('/api/possibly_remaining_ingredients/', methods=['GET'])
 def items_json():
     items = default_items()
-    return jsonify(items)
     return jsonify({'data': [items]})
 
 
