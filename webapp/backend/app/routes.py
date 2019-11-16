@@ -1,6 +1,6 @@
 from app import app
 from flask import send_from_directory, jsonify
-from app.api.api import get_rich_recipe, stores_output, default_items, infer_recipes
+from app.api.api import get_rich_recipe, stores_output, default_items, return_rich_inferred_recipes
 
 FRONTEND_DIST_DIR = '../../frontend/dist'
 
@@ -27,8 +27,8 @@ def rich_recipe_json(recipe_id):
 # Route for requesting recipes based on items of user
 @app.route('/api/recipe_suggestions/<items>', methods=['GET']) #Change this to POST and payload in the body once working frontend
 def infer_recipes_json(items):
-    recipes = infer_recipes(items)
-    return jsonify(recipes)
+    recipes = return_rich_inferred_recipes(items)
+    return jsonify({'data': recipes})
 
 #Redundant ATM
 # Route for requesting nearest stores with zip code 
