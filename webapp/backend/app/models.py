@@ -1,5 +1,10 @@
 from app import db
 
+recipe_ingredients = db.Table('recipe_ingredients',
+                              db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'), primary_key=True),
+                              db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id'), primary_key=True)
+                              )
+
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -8,6 +13,10 @@ class Recipe(db.Model):
     name = db.Column(db.String(200))
     image = db.Column(db.String(300))
     instructions = db.Column(db.Text())
+    ingredients = db.relationship('Ingredient',
+                                  secondary=recipe_ingredients,
+                                  lazy='subquery',
+                                  backref=db.backref('recipes', lazy=True))
 
     def __repr__(self):
         return f'<Id: {self.recipe_id } Recipe name is {self.name}'
