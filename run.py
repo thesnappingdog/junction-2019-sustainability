@@ -23,6 +23,7 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 ACTIONS = [
     'build',
+    'run',
     'compose',
     'deploy',
     'cleanup'
@@ -50,8 +51,21 @@ def build(args):
     for service_name in get_service_names_arr(args):
         service_dir = PROJECT_ROOT_DIR + '/' + service_name
         service_tag = 'junkkari/' + service_name
-        print(f"{_I+_O}Building {_p + service_name + _e} ...{_E}")
         params = ['docker', 'build', '--tag', service_tag, service_dir]
+        print(f"{_I+_O}Building {_p + service_name + _e} ...{_E}")
+        subprocess.call(params)
+
+def run(args):
+    for service_name in get_service_names_arr(args):
+        service_tag = 'junkkari/' + service_name
+        params = ['docker', 'run', '-d'] 
+        if service_name == 'possu':
+            params += ['-p', '5432:5432']
+        elif service_name == 'webapp':
+            params += ['-p', '5432:5432']
+        params.append(service_tag)
+        print(f"{_I+_O}Running {_p + service_name + _e} detached ...{_E}")
+        print(f"{_O+' '.join(params)+_E}")
         subprocess.call(params)
 
 def compose(args):
