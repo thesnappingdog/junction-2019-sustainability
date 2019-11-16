@@ -1,4 +1,5 @@
 import csv
+from ast import literal_eval
 
 
 def load_recipe_csv():
@@ -9,13 +10,15 @@ def load_recipe_csv():
 
 def parse_raw_data(raw_recipe_data):
     recipes_parsed = []
+
     for i in raw_recipe_data:
         recipes_parsed.append({
             'recipe_id': i['recipe_id'],
             'order_id': i['order_id'],
             'name': i['name'],
             'image': i['image'],
-            'instructions': i['instructions']
+            'instructions': i['instructions'],
+            'ingredients': literal_eval(i['ingredient_ids'])
         })
     return recipes_parsed
 

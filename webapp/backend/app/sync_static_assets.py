@@ -4,6 +4,7 @@ from app.models import Ingredient as Ingredient
 from app.downsync import sync_recipes as r_sync
 from app.downsync import sync_ingredients as i_sync
 
+# Helper functions for syncing recipe, ingredients to database
 
 def load_recipes():
     recipes = r_sync.prepare_recipes()
@@ -58,6 +59,27 @@ def ingredient_loop(ingredients):
         commit_new_ingredient(new_ingredient)
 
 
+def associate_ingredients_to_recipe(recipe):
+    working_recipe = Recipe.query.filter_by(recipe_id=recipe['recipe_id']).first()
+    new_ingredients = recipe['ingredients']
+    for ingredient in new_ingredients:
+        working_ingredient = Ingredient.query.filter_by(ingredient_id=ingredient).first()
+        working_recipe.associate_ingredients_to_recipe(working_ingredient)
+
+
+def association_loop_through_recipes(recipes):
+    for recipe in recipes:
+        associate_ingredients_to_recipe(recipe)
+        print('Recipe associated')
+
+    # get recipe_ids from recipes
+    # loop: query database with recipe_id, get recipe=id
+    # query database with ingredient_ids as loop
+    # for every recipe id, ingredient ids need to be queried, and then added to table
+
+
+# Use these functions to resync database form scratch
+
 def drop_and_sync_recipes():
     db.drop_all()
     db.create_all()
@@ -95,4 +117,6 @@ def drop_and_sync_everything():
         ingredient_loop(ingredients)
     except KeyError:
         raise Exception
+
+    association_loop_through_recipes(recipes)
 

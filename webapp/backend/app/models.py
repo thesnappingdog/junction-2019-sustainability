@@ -1,4 +1,5 @@
 from app import db
+from flask_sqlalchemy import orm
 
 recipe_ingredients = db.Table('recipe_ingredients',
                               db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'), primary_key=True),
@@ -29,9 +30,9 @@ class Recipe(db.Model):
         else:
             return f'Recipe {self.recipe_id} already exists'
 
-    def associate_ingredients_to_recipe(self, new_ingredients):
-        for ingredient in new_ingredients:
-            self.ingredients.append(ingredient)
+    def associate_ingredients_to_recipe(self, working_ingredient):
+        if working_ingredient is not None:
+            self.ingredients.append(working_ingredient)
             db.session.commit()
 
     def __repr__(self):
