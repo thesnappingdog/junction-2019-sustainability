@@ -18,6 +18,17 @@ class Recipe(db.Model):
                                   lazy='subquery',
                                   backref=db.backref('recipes', lazy=True))
 
+    @staticmethod
+    def check_recipe_existence(recipe_id):
+        return Recipe.query.filter_by(recipe_id=recipe_id).count() > 0
+
+    def add_recipe_to_table(self):
+        if Recipe.check_recipe_existence(self.recipe_id) is False:
+            db.session.add(self)
+            db.session.commit()
+        else:
+            return f'Recipe {self.recipe_id} already exists'
+
     def __repr__(self):
         return f'<Id: {self.recipe_id } Recipe name is {self.name}'
 
@@ -28,7 +39,19 @@ class Ingredient(db.Model):
     name = db.Column(db.String(200))
     department_id = db.Column(db.Integer)
 
+    @staticmethod
+    def check_ingredient_existence(ingredient_id):
+        return Ingredient.query.filter_by(ingredient_id=ingredient_id).count() > 0
+
+    def add_ingredient_to_table(self):
+        if Ingredient.check_ingredient_existence(self.ingredient_id) is False:
+            db.session.add(self)
+            db.session.commit()
+        else:
+            return f'{self.ingredient_id} already exists'
+
     def __repr__(self):
         return f'Ingredient ID: {self.ingredient_id} is {self.name}'
+
 
 
