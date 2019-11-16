@@ -1,0 +1,34 @@
+.intro-card {
+  padding: 10px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .intro-card-content {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    .row {
+      display: block;
+      width: 100%;
+    }
+
+    img {
+      display: block;
+      max-height: 50%;
+      max-width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .title {
+      display: block;
+    }
+  }
+
+  .main-image {
+    width: 100%;
+  }
+}

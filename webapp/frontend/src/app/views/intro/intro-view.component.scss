@@ -1,0 +1,23 @@
+.view {
+  background: #bbb;
+  position: relative;
+  padding: 5%;
+
+  * {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .skip-button {
+    a {
+      color: gray;
+      text-decoration: none;
+    }
+  }
+}
