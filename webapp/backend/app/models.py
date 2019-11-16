@@ -58,5 +58,3 @@ class Ingredient(db.Model):
     def __repr__(self):
         return f'Ingredient ID: {self.ingredient_id} is {self.name}'
 
-
-

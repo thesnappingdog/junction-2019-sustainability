@@ -1,6 +1,7 @@
-from app import app
+from app import app, db
 from flask import send_from_directory, jsonify
 from app.api.api import get_rich_recipe, stores_output, default_items, return_rich_inferred_recipes
+from app.sync_static_assets import drop_and_sync_everything as sync_all
 
 FRONTEND_DIST_DIR = '../../frontend/dist'
 
@@ -45,6 +46,11 @@ def items_json():
     items = default_items()
     return jsonify({'data': [items]})
 
+
+@app.route('/downsync/recreate', methods=['GET'])
+def recreate():
+    sync_all()
+    return "Done. DB Up to date."
 
 # ===== This has to be the VERY LAST route defined in this file! =====
 # If route does not match any route above, then serve frontend file,
