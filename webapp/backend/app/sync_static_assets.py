@@ -29,8 +29,7 @@ def initialize_recipe_instance(recipe):
 def initialize_ingredient_instance(recipe):
     new_ingredient = Ingredient(
         ingredient_id=recipe['ingredient_id'],
-        name=recipe['name'],
-        department_id=recipe['department_id']
+        name=recipe['name']
     )
     return new_ingredient
 
@@ -66,6 +65,17 @@ def drop_and_sync_recipes():
     recipes = load_recipes()
     try:
         recipe_loop(recipes)
+    except KeyError:
+        raise Exception
+
+
+def drop_and_sync_ingredients():
+    db.drop_all()
+    db.create_all()
+
+    ingredients = load_ingredients()
+    try:
+        ingredient_loop(ingredients)
     except KeyError:
         raise Exception
 

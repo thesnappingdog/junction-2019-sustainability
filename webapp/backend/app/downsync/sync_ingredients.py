@@ -12,8 +12,7 @@ def parse_raw_data(raw_ingredient_data):
     for i in raw_ingredient_data:
         ingredients_parsed.append({
             'ingredient_id': i['id'],
-            'name': i['name'],
-            'department_id': i['department']
+            'name': i['name']
         })
     return ingredients_parsed
 
