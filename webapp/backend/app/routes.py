@@ -15,6 +15,7 @@ def angular_index():
 def rich_recipe_json(recipe_id):
     name, ingredients, instructions, image = get_rich_recipe('00100', int(recipe_id), [])
     return jsonify({
+        'id': recipe_id,
         'name': name,
         'ingredients': ingredients,
         'instructions': instructions,
@@ -22,6 +23,7 @@ def rich_recipe_json(recipe_id):
     })
 
 
+# Route for requesting nearest stores with zip code
 @app.route('/api/get_stores/<zip_code>', methods=['GET'])
 def store_json(zip_code):
     stores = stores_output(zip_code)
