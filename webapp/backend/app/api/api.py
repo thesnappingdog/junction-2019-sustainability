@@ -116,7 +116,7 @@ def is_product_available(ean, store):
     availability_stores = request_availability(ean)
     return check_availability(availability_stores, store)
 
-def infer_recipes(items, count=5):
+def infer_recipes(items=None, count=5):
     if items:
         items = items.split(',')
     else:
@@ -142,18 +142,25 @@ def infer_recipes(items, count=5):
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
     stores = parse_stores(get_stores(zip_code))
-    recipe_name, recipe_ingredients, recipe_instructions, recipe_image = get_recipe(recipe_id)
+    recipe_name, recipe_ingredients, recipe_instructions, recipe_image = get_recipe(recipe_id) #Get from DB
     parsed_ingredients = parse_ingredients(recipe_ingredients)
     rich_ingredients = []
     for ingredient in parsed_ingredients:
-        available = 1
+        available_in_store = 0
+        available_store_name = 'none'
+        own = 0
         if not ingredient['type'] in existing_ingredient_types:
-            available = 0
             items = parse_items(get_items_for_item_type(ingredient['type']))
             for item in items:
                 for store in stores:
                     if is_product_available(item['ean'], store):
-                        available = 1
-        ingredient['availability'] = available
+                        available_in_store = 1
+                        available_store_name = store['name']
+        else:
+            own = 1
+            
+        ingredient['availability'] = available_in_store
+        ingredient['available_store_name'] = available_store_name
+        ingredient['own'] = own
         rich_ingredients.append(ingredient)
     return recipe_name, rich_ingredients, recipe_instructions, recipe_image

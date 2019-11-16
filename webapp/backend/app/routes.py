@@ -11,13 +11,15 @@ def angular_index():
 
 
 # Route for requesting rich recipe with recipe ID in url
-@app.route('/api/get_rich_recipe/<recipe_id>', methods=['GET'])
+@app.route('/api/get_rich_recipe/<recipe_id>', methods=['GET']) #Change this to POST and payload in the body once working frontend
 def rich_recipe_json(recipe_id):
-    name, ingredients, instructions, image = get_rich_recipe('00100', int(recipe_id), [])
+    zip_code = '00180'
+    existing_ingredient_ids = ['1', '2', '3']
+    name, rich_ingredients, instructions, image = get_rich_recipe(zip_code, int(recipe_id), existing_ingredient_ids)
     return jsonify({
         'id': recipe_id,
         'name': name,
-        'ingredients': ingredients,
+        'ingredients': rich_ingredients,
         'instructions': instructions,
         'image': image
     })
@@ -28,8 +30,8 @@ def infer_recipes_json(items):
     recipes = infer_recipes(items)
     return jsonify(recipes)
 
-
-# Route for requesting nearest stores with zip code
+#Redundant ATM
+# Route for requesting nearest stores with zip code 
 @app.route('/api/get_stores/<zip_code>', methods=['GET'])
 def store_json(zip_code):
     stores = stores_output(zip_code)
