@@ -1,16 +1,35 @@
 export class Ingredient {
   public name: string;
-  public unit: string;
-  public quantity: number;
+  public id?: string;
+  public type?: string;
+  public amount?: number;
+  public unit?: string;
 
-  constructor( name: string, unit: string, quantity: any ) {
-    this.name = name;
+  constructor (
+    name: string,
+    id: any,
+    type: any,
+    amount: any,
+    unit: string,
+  ) {
+    this.name = name.trim();
+    this.id = id ? id.toString() : null;
+    this.type = type ? type.toString() : null;
+    this.amount = amount ? Number(amount) : null;
     this.unit = unit;
-    this.quantity = quantity;
   }
 
-  static fromJSON(obj) {
-    // TODO
-    return new Ingredient('potato', 'kg', 1);
+  static fromName(name: string) {
+    return new Ingredient(name, null, null, null, null);
+  }
+
+  static fromJSON(obj: any) {
+    return new Ingredient(
+      obj['name'],
+      obj['id'] || null,
+      obj['type'] || null,
+      obj['amount'] || null,
+      obj['unit'] || null,
+    );
   }
 }

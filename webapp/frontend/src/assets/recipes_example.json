@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": 15,
+      "image": "Teriyakikana", 
+      "ingredients": [
+        {
+          "amount": "1/2", 
+          "availability": 0, 
+          "name": "Soijakastike", 
+          "type": "6953", 
+          "unit": "dl"
+        }, 
+        {
+          "amount": "1/2", 
+          "availability": 0, 
+          "name": "Riisiviinietikka", 
+          "type": "6740", 
+          "unit": "dl"
+        }, 
+        {
+          "amount": "2", 
+          "availability": 0, 
+          "name": "Ruokokidesokeri", 
+          "type": "6795", 
+          "unit": "rkl"
+        }, 
+        {
+          "amount": "1", 
+          "availability": 0, 
+          "name": "Valkosipuli, tuore", 
+          "type": "15809", 
+          "unit": ""
+        }, 
+        {
+          "amount": "1", 
+          "availability": 0, 
+          "name": "Inkiv\u00e4\u00e4ri, jauhettu", 
+          "type": "5566", 
+          "unit": "tl"
+        }, 
+        {
+          "amount": "1", 
+          "availability": 0, 
+          "name": "Maissit\u00e4rkkelysjauho", 
+          "type": "6035", 
+          "unit": "tl"
+        }
+      ], 
+      "instructions": "# Mittaa kastikkeen ainekset pieneen kattilaan ja sekoita tasaiseksi kierrevatkaimella. Kuumenna koko ajan sekoittaen, kunnes seos paksuuntuu. Anna kastikkeen j\u00e4\u00e4hty\u00e4.\r\n# Pyyhi broilereiden pinta talouspaperilla ja pane ne marinoitumaan teriyakikastikkeeseen huoneenl\u00e4mp\u00f6\u00f6n puoleksi tunniksi ennen paistamista.\r\n# Paista broilerit kypsiksi \u00f6ljyss\u00e4 pannulla. Sivele fileille marinadia paistamisen aikana. Viipaloi kyps\u00e4t broilerit.\r\n# Revi j\u00e4\u00e4salaatti ja korianteri vadille. Halkaise kurkku pitkitt\u00e4in. Kaavi halutessasi siemenet pois lusikalla ja leikkaa paksuiksi viipaleiksi. Mausta kurkku riisiviinietikalla, sokerilla ja suolalla. Sekoita kurkut salaatin joukkoon ja valuta salaatille oliivi\u00f6ljy\u00e4.\r\n# Halkaise avokado, poista kuori ja kivi. Viipaloi hedelm\u00e4liha.\r\n# Nosta salaatin pinnalle viipaloidut broilerit ja avokadot. Ripottele broilereille seesaminsiemeni\u00e4 ja koristele salaatti kev\u00e4tsipulilla.", 
+      "name": "Teriyakikana"
+    }
+  ]
+}

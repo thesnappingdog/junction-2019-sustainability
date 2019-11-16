@@ -4,11 +4,11 @@ import { Ingredient } from '../../classes/ingredient';
 import { Recipe } from '../../classes/recipe';
 
 @Component({
-  selector: 'app-recipe-browse-card',
-  templateUrl: './recipe-browse-card.component.html',
-  styleUrls: ['./recipe-browse-card.component.scss']
+  selector: 'app-recipe-card',
+  templateUrl: './recipe-card.component.html',
+  styleUrls: ['./recipe-card.component.scss']
 })
-export class RecipeBrowseCardComponent implements OnInit {
+export class RecipeCardComponent implements OnInit {
 
   constructor() { }
 

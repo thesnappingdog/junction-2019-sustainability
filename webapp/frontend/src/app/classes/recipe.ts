@@ -1,15 +1,37 @@
 import { Ingredient } from './ingredient';
 
 export class Recipe {
+  public id: string;
+  public name: string;
+  public image_url: string;
   public ingredients: Ingredient[];
+  public instructions: string;
 
-  constructor( obj: any ) {
-    this.constructIngredients(obj['ingredients'])
+  constructor(
+    id: string,
+    name: string,
+    image_url: string,
+    ingredients: Ingredient[],
+    instructions: string
+   ) {
+    this.id = id;
+    this.name = name;
+    this.image_url = image_url;
+    this.ingredients = ingredients;
+    this.instructions = instructions;
   }
 
-  constructIngredients(objects) {
-    objects.forEach(obj => {
-      this.ingredients.push(Ingredient.fromJSON(obj))
+  static fromJSON( obj ) {
+    let ingredients: Ingredient[] = [];
+    obj['ingredients'].forEach( item => {
+      ingredients.push(Ingredient.fromJSON(item))
     });
+    return new Recipe(
+      obj['id'].toString(),
+      obj['name'],
+      obj['image'],
+      ingredients,
+      obj['instructions']
+    );
   }
 }

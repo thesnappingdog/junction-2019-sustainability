@@ -28,5 +28,39 @@ $frontend-theme: mat-light-theme($frontend-primary, $frontend-accent, $frontend-
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+$footer-height: 30px;
+
+html, body {
+  height: 100%; overflow: hidden;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+app-root {
+  min-height: 100%;
+  min-width: 100%;
+  height: auto !important;
+  margin: 0;
+  margin-bottom: -$footer-height;
+}
+
+router-outlet { // content
+  min-height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.view {
+  min-height: 100%;
+  background: yellow;
+}
+
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: bisque;
+  color: white;
+  text-align: center;
+}

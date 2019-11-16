@@ -1,0 +1,41 @@
+<div class="view">
+  <!-- Input field for typing -->  
+  <!-- Selected existing ingredients -->
+  <div>
+    I already have these ...
+    <mat-form-field class="selected-chip-list">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let ingredient of selectedIngredients" (click)="removeSelected(ingredient)">
+                  {{ingredient.name}}
+          <mat-icon>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="I already have these ..."
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addNew($event)">
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+
+  <!-- Ingredient suggestions -->
+  <div>
+    Items I have recently bought ...
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip *ngFor="let ingredient of suggestedIngredients" (click)="addSuggested(ingredient)">
+                {{ingredient.name}}
+        <mat-icon>add</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <div class="nav-buttons" [ngSwitch]="selectedIngredients.length > 0">
+    <div *ngSwitchCase="true">
+      <button mat-raised-button color="primary" (click)="proceedToRecipeSuggestions()">Get recipe suggestions</button>
+    </div>
+    <div *ngSwitchDefault>
+      <a class="skip-button" (click)="proceedToRecipeSuggestions()">Skip adding existing ingredients</a>
+    </div>
+  </div>
+</div>
+  
