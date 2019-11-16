@@ -48,11 +48,9 @@ def parse_ingredients(ingredients):
 
 def get_items_for_item_type(item_type):
     products_url = KESKOConfig.PRODUCTS_URL
-    print("item type", item_type)
-    body = {'filters': {'ingredientType': item_type}}
+    body = {'filters': {'ingredientType': str(item_type)}}
     items_response = requests.post(products_url, json=body, auth=KAuth())
     items_json = json.loads(items_response.text)
-    print("json", items_json)
     return items_json['results']
 
 
@@ -163,6 +161,7 @@ def return_rich_inferred_recipes(items):
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
     stores = parse_stores(get_stores(zip_code))
+    print("stores", stores)
     recipe = Recipe.query.filter_by(recipe_id=recipe_id).first()
     recipe_name = str(recipe.name)
     recipe_instructions = str(recipe.instructions)
@@ -173,7 +172,7 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
         available_in_store = 0
         available_store_name = 'none'
         own = 0
-        print("ing", ingredient.ingredient_id)
+        expiring = 0
         if not ingredient.ingredient_id in existing_ingredient_types:
             items = parse_items(get_items_for_item_type(ingredient.ingredient_id))
             for item in items:
@@ -181,12 +180,16 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
                     if is_product_available(item['ean'], store):
                         available_in_store = 1
                         available_store_name = store['name']
+                        expiring = np.random.choice([0,1])
+
         else:
             own = 1
+            expiring = 0
 
         rich_ingredient['availability'] = available_in_store
         rich_ingredient['available_store_name'] = available_store_name
         rich_ingredient['own'] = own
         rich_ingredient['name'] = ingredient.name
+        rich_ingredient['expiring'] = expiring
         rich_ingredients.append(rich_ingredient)
     return recipe_name, rich_ingredients, recipe_instructions, recipe_image
