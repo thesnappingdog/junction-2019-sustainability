@@ -2,6 +2,10 @@ from requests.auth import AuthBase
 from config import KESKOConfig
 import requests
 import json
+import random
+import numpy as np
+from app.inference.classifier import Classifier
+import torch
 
 
 class KAuth(AuthBase):
@@ -89,6 +93,17 @@ def request_availability(ean):
     availability_stores = availability_json[0]['stores']
     return availability_stores
 
+def default_items():
+    items = ['5286', '7191', '6807', '6932', '7532', '8116', '6269', '6751', '6517']
+    item_dicts = []
+    for item in items:
+        item_dict = {}
+        item_dict['id'] = item
+        item_dict['name'] = "dummy name" #Get this from DB
+        item_dict['image_url'] = "dummy.png" #Get this from DB
+        item_dicts.append(item_dict)
+    return item_dicts
+
 
 def check_availability(availability_stores, store):
     for a_store in availability_stores:
@@ -100,6 +115,29 @@ def check_availability(availability_stores, store):
 def is_product_available(ean, store):
     availability_stores = request_availability(ean)
     return check_availability(availability_stores, store)
+
+def infer_recipes(items, count=5):
+    if items:
+        items = items.split(',')
+    else:
+        items = [np.random.randint(0,7000)]
+    classifier = Classifier()
+    classifier.load_trained()
+    suggestions = []
+    for _ in range(count):
+        if len(items) == 1:
+            length = 1
+        else:
+            length = np.random.choice(range(1,len(items)))
+        infer_items = random.sample(items, length)
+        items_tensor = classifier.mangle_list_of_items_to_tensor(items)
+        classifier.init_hidden(1)
+        prediction = classifier(items_tensor, torch.tensor([len(items)]))
+        max_ = int(prediction.detach().numpy().argmax(axis=2)[0][0])
+        suggestions.append(max_) #Add metadata to recipe once available in DB
+
+    return np.unique(suggestions).tolist()
+
 
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):

@@ -110,3 +110,7 @@ venv.sh
 .DS_Store
 
 webapp/.DS_Store
+
+# data
+recipes.csv
+webapp/backend/inference/model.pth

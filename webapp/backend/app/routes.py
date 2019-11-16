@@ -1,6 +1,6 @@
 from app import app
 from flask import send_from_directory, jsonify
-from app.api.api import get_rich_recipe, stores_output
+from app.api.api import get_rich_recipe, stores_output, default_items, infer_recipes
 
 FRONTEND_DIST_DIR = '../../frontend/dist'
 
@@ -22,12 +22,24 @@ def rich_recipe_json(recipe_id):
         'image': image
     })
 
+# Route for requesting recipes based on items of user
+@app.route('/api/recipe_suggestions/<items>', methods=['GET']) #Change this to POST and payload in the body once working frontend
+def infer_recipes_json(items):
+    recipes = infer_recipes(items)
+    return jsonify(recipes)
+
 
 # Route for requesting nearest stores with zip code
 @app.route('/api/get_stores/<zip_code>', methods=['GET'])
 def store_json(zip_code):
     stores = stores_output(zip_code)
     return jsonify(stores)
+
+# Route for getting current ingredients of user
+@app.route('/api/possibly_remaining_ingredients/', methods=['GET'])
+def items_json():
+    items = default_items()
+    return jsonify(items)
 
 
 # ===== This has to be the VERY LAST route defined in this file! =====
