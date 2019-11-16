@@ -42,7 +42,6 @@ class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ingredient_id = db.Column(db.Integer, unique=True)
     name = db.Column(db.String(200))
-    department_id = db.Column(db.Integer)
 
     @staticmethod
     def check_ingredient_existence(ingredient_id):
