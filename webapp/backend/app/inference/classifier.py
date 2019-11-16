@@ -3,7 +3,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.nn as nn
 
 class Classifier(nn.Module):
-    def __init__(self, embedding_size=20000, hidden_size=128, output_size=7471):
+    def __init__(self, embedding_size=20000, hidden_size=128, output_size=7443):
         super(Classifier, self).__init__()
         self.hidden_size = hidden_size
         self.embedding = nn.Embedding(embedding_size, hidden_size)
