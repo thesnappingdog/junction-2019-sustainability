@@ -59,4 +59,9 @@ class Ingredient(db.Model):
         return f'Ingredient ID: {self.ingredient_id} is {self.name}'
 
 
-
+def database_check():
+    recipes_check = db.session.query(Recipe).count()
+    if recipes_check < 0:
+        print('Database needs to sync.')
+    else:
+        print(f'Database up to date with {recipes_check} items')
