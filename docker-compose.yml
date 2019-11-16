@@ -12,7 +12,10 @@ services:
       restart_policy:
         condition: any
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
   webapp:
     image: junkkari/webapp
     deploy:
