@@ -8,7 +8,7 @@ FROM node:10-alpine AS frontend_builder
 WORKDIR /build
 
 # Install Angular CLI
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli --unsafe-perm
 
 # Install Node modules specified in frontend/package.json
 ADD frontend/package*.json frontend/
