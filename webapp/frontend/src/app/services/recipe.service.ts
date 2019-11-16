@@ -12,15 +12,23 @@ import { Recipe } from '../classes/recipe';
   providedIn: 'root'
 })
 export class RecipeService {
-  private cachedRecipes: { [id: string]: Recipe; }
+  private cachedRecipes: { [id: string]: Recipe; } = {};
+  private suggestedRecipes: Recipe[] = [];
 
-  private suggestedRecipes: {}
+  private loadingSuggestions: boolean = false;
   
+  private _moreRecipeSuggestions: Subject<Recipe[]> = new Subject<Recipe[]>();
+  public moreRecipeSuggestions = this._moreRecipeSuggestions.asObservable();
+
   constructor(
     private ingredientsService: IngredientsService,
     private http: HttpClient
   ) {
-    this.cachedRecipes = {};
+  }
+
+  // Angular frontend development use only
+  private wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getRecipe( _id: any ) {
@@ -49,17 +57,29 @@ export class RecipeService {
     return this.http.get(url);
   }
 
-  getRecipeSuggestions() {
+  isLoadingSuggestions(): boolean {
+    return this.loadingSuggestions;
+  }
+
+  async loadRecipeSuggestions() {
+    this.loadingSuggestions = true;
+    // --- START: Angular frontend development ---
+    if (window.location.host == 'localhost:4200') await this.wait(1250);
+    // --- END: Angular frontend development ---
     this.fetchRecipeSuggestions().toPromise().then(
       resp => {
-        let suggestions: Recipe[] = resp['data'].map( item => Recipe.fromJSON(resp));
-        suggestions.forEach( recipe => { 
+        this.loadingSuggestions = false;
+        let newSuggestions: Recipe[] = resp['data'].map( item => Recipe.fromJSON(item));
+        newSuggestions.forEach( recipe => { 
+          console.log(recipe);
+          this.suggestedRecipes.push(recipe);
           const id = recipe.id
           if (!this.cachedRecipes[id]) this.cachedRecipes[id] = recipe;
         });
-        return suggestions;
+        this._moreRecipeSuggestions.next(newSuggestions);
       },
       err => {
+        this.loadingSuggestions = false;
         console.error(err)
       }
     );
@@ -67,9 +87,6 @@ export class RecipeService {
 
   fetchRecipeSuggestions(): Observable<Object> {
     let url = '/api/get_rich_recipe/';
-    // --- START: Angular frontend development ---
-    if (window.location.host == 'localhost:4200') url = '/assets/rich_recipe_example.json';
-    // --- END: Angular frontend development ---
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -78,7 +95,12 @@ export class RecipeService {
     let params = {
       'ingredients': this.ingredientsService.selected
     }
-
+    // --- START: Angular frontend development ---
+    if (window.location.host == 'localhost:4200') {
+      url = '/assets/rich_recipe_example.json';
+      return this.http.get(url);
+    }
+    // --- END: Angular frontend development ---
     return this.http.post(url, params, httpOptions).pipe(
       catchError(this.handleError)
     );

@@ -1,1 +1,10 @@
-<p>recipe-browse-card works!</p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header style="background-size: cover;"
+    [style.backgroundImage]="'url('+ recipe.imageUrl +')'"
+    [style.minHeight]="'240px'">
+    <mat-panel-title>{{ recipe.name }}</mat-panel-title>
+    <mat-panel-description>30 min</mat-panel-description>
+  </mat-expansion-panel-header>
+
+  {{ recipe.instructions }}
+</mat-expansion-panel>

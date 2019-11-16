@@ -38,7 +38,7 @@ export class IngredientsService {
   }
 
   loadRecentlyBought(): void {
-    this.fetchrecentlyBought().toPromise().then(
+    this.fetchRecentlyBought().toPromise().then(
       resp => {
         this.recentlyBought = resp['data'].map( item => Ingredient.fromJSON(item) );
         this._recentlyBoughtChanged.next(this.recentlyBought);
@@ -51,7 +51,7 @@ export class IngredientsService {
     );
   }
 
-  fetchrecentlyBought(): Observable<Object> {
+  fetchRecentlyBought(): Observable<Object> {
     let url = '/api/possibly_remaining_ingredients/';
     // --- START: Angular frontend development ---
     if (window.location.host == 'localhost:4200') url = '/assets/remaining_ingredients_example.json';

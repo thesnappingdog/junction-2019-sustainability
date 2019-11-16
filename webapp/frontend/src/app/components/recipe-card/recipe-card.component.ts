@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Ingredient } from '../../classes/ingredient';
 import { Recipe } from '../../classes/recipe';
@@ -10,9 +10,17 @@ import { Recipe } from '../../classes/recipe';
 })
 export class RecipeCardComponent implements OnInit {
 
+  public isOpen: boolean = false;
+  @Input() recipe: Recipe;
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  toggleOpen() {
+    
   }
 
 }

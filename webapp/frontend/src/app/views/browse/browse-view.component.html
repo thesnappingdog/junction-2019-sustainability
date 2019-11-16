@@ -1,6 +1,10 @@
 <div class="view">
-  <p>browse-view works!</p>
-
-  
-
+  <!-- <div *ngIf="isLoadingRecipeSuggestions"></div> -->
+  <div *ngFor="let recipe of recipeSuggestions" class="recipe-card-wrapper">
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
+  </div>
+  <div *ngIf="currentlyLoadingSuggestions">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>
+

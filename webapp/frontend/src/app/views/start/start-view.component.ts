@@ -77,17 +77,12 @@ export class StartViewComponent implements OnInit, OnDestroy {
     this.ingredientsService.setSelected(this.selectedIngredients);
   }
 
-  onSuggestedChanged() {
-    // TODO: Make sure necessary updates are made, if any
-    console.log("TODO: onSuggestedChanged")
-  }
-
   proceedToRecipeSuggestions() {
-    this.recipeService.getRecipeSuggestions(); // Starts fetching recipe suggestions
+    this.recipeService.loadRecipeSuggestions(); // Starts fetching recipe suggestions
 
     // TODO: Do some transition animation to make waiting time seem shorter
 
-    this.router.navigate(['/', 'start']);
+    this.router.navigate(['/', 'browse']);
   }
 
 }
