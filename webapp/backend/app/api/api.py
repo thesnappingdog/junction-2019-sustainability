@@ -3,6 +3,7 @@ from config import KESKOConfig
 import requests
 import json
 
+
 class KAuth(AuthBase):
     def __init__(self):
         self.key = KESKOConfig.KESKO_PRIMARY_KEY
@@ -12,8 +13,9 @@ class KAuth(AuthBase):
         r.headers['Content-Type'] = 'application/json'
         return r
 
+
 def get_recipe(recipe_id, main_category="4", sub_category="28"):
-    recipe_url = 'https://kesko.azure-api.net/v1/search/recipes'
+    recipe_url = KESKOConfig.RECIPES_URL
     body = {'filters' : {'mainCategory': main_category, 'subCategory': sub_category}}
     recipes_response = requests.post(recipe_url, json=body, auth=KAuth())
     recipes_response_text = recipes_response.text
@@ -24,7 +26,8 @@ def get_recipe(recipe_id, main_category="4", sub_category="28"):
     ingredients = recipe['Ingredients'][0]['SubSectionIngredients']
     image = recipe['PictureUrls'][0]['Normal']
     return name, ingredients, instructions, image
-    
+
+
 def parse_ingredients(ingredients):
     parsed_ingredients = []
     for ingredient in ingredients:
@@ -35,13 +38,15 @@ def parse_ingredients(ingredients):
         parsed_ingredient['type'] = ingredient[0]['IngredientType']
         parsed_ingredients.append(parsed_ingredient)
     return parsed_ingredients
-    
+
+
 def get_items_for_item_type(item_type):
-    products_url = 'https://kesko.azure-api.net/v1/search/products'
+    products_url = KESKOConfig.PRODUCTS_URL
     body = {'filters' : {'ingredientType': item_type}}
     items_response = requests.post(products_url, json=body, auth=KAuth())
     items_json = json.loads(items_response.text)
     return items_json['results']
+
 
 def parse_items(items):
     parsed_items = []
@@ -52,12 +57,14 @@ def parse_items(items):
         parsed_items.append(parsed_item)
     return parsed_items
 
-def get_stores(zip_code = '00180'):
-    store_url = 'https://kesko.azure-api.net/v1/search/stores'
-    body = {'filters' : {'postCode': zip_code}}
+
+def get_stores(zip_code='00180'):
+    store_url = KESKOConfig.STORES_URL
+    body = {'filters': {'postCode': zip_code}}
     stores_response = requests.post(store_url, json=body, auth=KAuth())
     stores_json = json.loads(stores_response.text)
     return stores_json['results']
+
 
 def parse_stores(stores):
     parsed_stores = []
@@ -68,15 +75,17 @@ def parse_stores(stores):
         parsed_stores.append(parsed_store)
     return parsed_stores
 
+
 def check_availability(ean, store):
-    availability_url = 'https://kesko.azure-api.net/v2/products?ean=' + ean
-    availability_response = requests.get(availability_url, auth=KAuth())
+    params = {'ean': ean}
+    availability_response = requests.get(KESKOConfig.PRODUCTS_URL_V2, params=params, auth=KAuth())
     availability_json = json.loads(availability_response.text)
     availability_stores = availability_json[0]['stores']
     for a_store in availability_stores:
         if a_store['id'] == store['id']:
             return True
     return False
+
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
     stores = parse_stores(get_stores(zip_code))
@@ -90,7 +99,7 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
             items = parse_items(get_items_for_item_type(ingredient['type']))
             for item in items:
                 for store in stores:
-                    if check_availability(item['ean'],store):
+                    if check_availability(item['ean'], store):
                         available = 1
         ingredient['availability'] = available
         rich_ingredients.append(ingredient)

@@ -13,11 +13,8 @@ class Config(object):
 class KESKOConfig(Config):
     # API ENDPOINT URLS
     RECIPES_URL = "https://kesko.azure-api.net/v1/search/recipes"
+    PRODUCTS_URL = "https://kesko.azure-api.net/v1/search/products"
+    PRODUCTS_URL_V2 = "https://kesko.azure-api.net/v2/products"
     STORES_URL = "https://kesko.azure-api.net/v1/search/stores"
     OFFERS_URL = "https://kesko.azure-api.net/v1/search/offers"
-
-    HEADERS = {
-        'Ocp-Apim-Subscription-Key': Config.KESKO_PRIMARY_KEY,
-        'Content-Type': 'application/json'
-    }
 
