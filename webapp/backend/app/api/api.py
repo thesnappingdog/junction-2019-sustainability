@@ -67,7 +67,11 @@ def get_stores(zip_code='00180'):
 def parse_stores(stores):
     parsed_stores = []
     for store in stores:
-        parsed_store = {'name': store['Name'], 'id': store['Id']}
+        parsed_store = {'name': store['Name'],
+                        'id': store['Id'],
+                        'address': store['Address'],
+                        'opening_hours': store['OpeningHours'][0]
+                        }
         parsed_stores.append(parsed_store)
     return parsed_stores
 
