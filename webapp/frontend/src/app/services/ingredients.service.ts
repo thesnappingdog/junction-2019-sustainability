@@ -9,34 +9,41 @@ import { Ingredient } from '../classes/ingredient';
   providedIn: 'root'
 })
 export class IngredientsService {
-  public existingIngredientSuggestions: Ingredient[];
-  public existingIngredients: Ingredient[];
+  public recentlyBought: Ingredient[];
+  public selected: Ingredient[];
   
-  private _existingIngredientsChanged: Subject<void> = new Subject<void>();
-  public existingIngredientsChanged = this._existingIngredientsChanged.asObservable();
+  private _recentlyBoughtChanged: Subject<Ingredient[]> = new Subject<Ingredient[]>();
+  public recentlyBoughtChanged = this._recentlyBoughtChanged.asObservable();
 
   constructor(
     private http: HttpClient
   ) {
-    this.existingIngredientSuggestions = [];
-    this.existingIngredients = [];
+    this.recentlyBought = [];
+    this.selected = [];
   }
 
-  addExistingIngredient(ingredient: Ingredient) {
-    this.existingIngredients.push(ingredient)
-    this._existingIngredientsChanged.next();
+  // For starting over with previously selected
+  getSelected(): Ingredient[] {
+    return this.selected;
   }
 
-  removeExistingIngredient(ingredient: Ingredient) {
-    this.existingIngredients.push(ingredient)
-    this._existingIngredientsChanged.next();
+  setSelected(ingredients: Ingredient[]) {
+    this.selected = ingredients;
   }
 
-  getExistingIngredientSuggestions() {
-    this.fetchExistingIngredientSuggestions().toPromise().then(
+  // For ingredient suggestions
+  getRecentlyBought(): Ingredient[] {
+    console.log('returning recenly bought');
+    return this.recentlyBought;
+  }
+
+  loadRecentlyBought(): void {
+    this.fetchrecentlyBought().toPromise().then(
       resp => {
-        this.existingIngredientSuggestions = resp['data'].map( item => Ingredient.fromJSON(item) );
-        this._existingIngredientsChanged.next();
+        this.recentlyBought = resp['data'].map( item => Ingredient.fromJSON(item) );
+        this._recentlyBoughtChanged.next(this.recentlyBought);
+        console.log('loaded recenly bought');
+        return this.recentlyBought;
       },
       err => {
         console.error(err)
@@ -44,10 +51,10 @@ export class IngredientsService {
     );
   }
 
-  fetchExistingIngredientSuggestions(): Observable<Object> {
+  fetchrecentlyBought(): Observable<Object> {
     let url = '/api/possibly_remaining_ingredients/';
     // --- START: Angular frontend development ---
-    if (window.location.host == 'localhost:4200') url = 'assets/remaining_ingredients_example.json';
+    if (window.location.host == 'localhost:4200') url = '/assets/remaining_ingredients_example.json';
     // --- END: Angular frontend development ---
     return this.http.get(url);
   }

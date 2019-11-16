@@ -2,12 +2,13 @@
   <app-intro-card [imageUrl]="imageUrl" [title]="title"></app-intro-card>
 
   <div class="nav-buttons">
+    <div>
       <button mat-raised-button (click)="prevCard()">Back</button>
       <button mat-raised-button color="primary" (click)="nextCard()">Ok!</button>
-  </div>
-
-  <div class="skip-button">
-    <a routerLink="/start">Skip intro</a>
+    </div>
+    <div>
+      <a class="skip-button" routerLink="/start">Skip intro</a>
+    </div>
   </div>
 </div>
 

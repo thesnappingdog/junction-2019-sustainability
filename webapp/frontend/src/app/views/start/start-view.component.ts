@@ -16,7 +16,7 @@ import { Ingredient } from 'src/app/classes/ingredient';
 })
 export class StartViewComponent implements OnInit, OnDestroy {
 
-  private existingIngredientsChangedRef: Subscription;
+  private recentlyBoughtIngredientsChangedRef: Subscription;
 
   visible = true;
   selectable = true;
@@ -25,11 +25,7 @@ export class StartViewComponent implements OnInit, OnDestroy {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   
   public selectedIngredients: Ingredient[] = [];
-  public suggestedIngredients: Ingredient[] = [
-    Ingredient.fromName('Lemon'),
-    Ingredient.fromName('Lime'),
-    Ingredient.fromName('Apple')
-  ];
+  public suggestedIngredients: Ingredient[] = [];
 
   constructor(
     private router: Router,
@@ -38,13 +34,15 @@ export class StartViewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.existingIngredientsChangedRef = this.ingredientsService.existingIngredientsChanged.subscribe( () =>
-      this.onExistingIngredientsChange()
-    );
+    this.recentlyBoughtIngredientsChangedRef = this.ingredientsService.recentlyBoughtChanged.subscribe( (recentlyBought) => {
+      this.suggestedIngredients = recentlyBought;
+    });
+    this.selectedIngredients  = this.ingredientsService.getSelected();
+    this.suggestedIngredients = this.ingredientsService.getRecentlyBought();
   }
 
   ngOnDestroy() {
-    this.existingIngredientsChangedRef.unsubscribe();
+    this.recentlyBoughtIngredientsChangedRef.unsubscribe();
   }
 
   addNew(event: MatChipInputEvent): void {
@@ -58,6 +56,7 @@ export class StartViewComponent implements OnInit, OnDestroy {
     if (input) {
       input.value = '';
     }
+    this.ingredientsService.setSelected(this.selectedIngredients);
   }
 
   removeSelected(ingredient: Ingredient): void {
@@ -65,6 +64,7 @@ export class StartViewComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.selectedIngredients.splice(index, 1);
     }
+    this.ingredientsService.setSelected(this.selectedIngredients);
   }
 
   addSuggested(ingredient: Ingredient) {
@@ -74,15 +74,12 @@ export class StartViewComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.suggestedIngredients.splice(index, 1);
     }
+    this.ingredientsService.setSelected(this.selectedIngredients);
   }
 
-  removeExistingIngredient(ingredient: Ingredient) {
-    this.ingredientsService.removeExistingIngredient(ingredient);
-  }
-
-  onExistingIngredientsChange() {
+  onSuggestedChanged() {
     // TODO: Make sure necessary updates are made, if any
-    console.log("TODO: onExistingIngredientsChange")
+    console.log("TODO: onSuggestedChanged")
   }
 
   proceedToRecipeSuggestions() {

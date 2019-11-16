@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ingredientsService.getExistingIngredientSuggestions();
+    this.ingredientsService.loadRecentlyBought();
     // this.userService.init();
     // this.recipeService.init();
   }

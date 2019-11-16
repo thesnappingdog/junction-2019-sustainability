@@ -44,7 +44,7 @@ export class RecipeService {
     let baseUrl = '/api/get_rich_recipe/';
     let url = baseUrl + id
     // --- START: Angular frontend development ---
-    if (window.location.host == 'localhost:4200') url = 'assets/rich_recipe_example.json';
+    if (window.location.host == 'localhost:4200') url = '/assets/rich_recipe_example.json';
     // --- END: Angular frontend development ---
     return this.http.get(url);
   }
@@ -68,7 +68,7 @@ export class RecipeService {
   fetchRecipeSuggestions(): Observable<Object> {
     let url = '/api/get_rich_recipe/';
     // --- START: Angular frontend development ---
-    if (window.location.host == 'localhost:4200') url = 'assets/rich_recipe_example.json';
+    if (window.location.host == 'localhost:4200') url = '/assets/rich_recipe_example.json';
     // --- END: Angular frontend development ---
     const httpOptions = {
       headers: new HttpHeaders({
@@ -76,7 +76,7 @@ export class RecipeService {
       })
     };
     let params = {
-      'ingredients': this.ingredientsService.existingIngredients
+      'ingredients': this.ingredientsService.selected
     }
 
     return this.http.post(url, params, httpOptions).pipe(
