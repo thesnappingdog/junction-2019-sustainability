@@ -133,7 +133,7 @@ def infer_recipes(items, count=5):
         items_tensor = classifier.mangle_list_of_items_to_tensor(items)
         classifier.init_hidden(1)
         prediction = classifier(items_tensor, torch.tensor([len(items)]))
-        max_ = int(prediction.detach().numpy().argmax(axis=2)[0][0])
+        max_ = int(prediction.detach().numpy().argmax(axis=2)[0][0]) #This is the order_id!
         suggestions.append(max_) #Add metadata to recipe once available in DB
 
     return np.unique(suggestions).tolist()
