@@ -34,7 +34,7 @@ def infer_recipes_json():
     items = []
     if 'ingredients' in params:
         for ingredient in params['ingredients']:
-            if 'id' in ingredient and :
+            if 'id' in ingredient:
                 items.append(int(ingredient['id']))
     recipes = return_rich_inferred_recipes(items)
     return jsonify({'data': recipes})
