@@ -97,7 +97,7 @@ def request_availability(ean):
 
 
 def default_items():
-    items = ['5286', '7191', '6807', '6932', '7532', '8116', '6269', '6751', '6517']
+    items = ['5286', '7191', '6807', '6932', '7532', '8116', '6269', '6751', '6517'] #Better default values?
     item_dicts = []
     for item in items:
         ingredient = Ingredient.query.filter_by(ingredient_id=item).first()
@@ -158,10 +158,15 @@ def return_rich_inferred_recipes(items):
         })
     return recipes
 
+def store_availability(store,ean):
+    availability = requests.get('https://kesko.azure-api.net/v4/stores/'+store['id']+'/products?ean=' + ean, auth=KAuth()) #This is not cool but works
+    availability_json = json.loads(availability.text)
+    return availability_json[ean]
+    
+
 
 def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
     stores = parse_stores(get_stores(zip_code))
-    print("stores", stores)
     recipe = Recipe.query.filter_by(recipe_id=recipe_id).first()
     recipe_name = str(recipe.name)
     recipe_instructions = str(recipe.instructions)
@@ -177,10 +182,12 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
             items = parse_items(get_items_for_item_type(ingredient.ingredient_id))
             for item in items:
                 for store in stores:
-                    if is_product_available(item['ean'], store):
-                        available_in_store = 1
-                        available_store_name = store['name']
-                        expiring = np.random.choice([0,1])
+                    if not available_in_store:
+                        store_avail = store_availability(store,item['ean'])
+                        if store_avail:
+                            available_in_store = 1
+                            available_store_name = store['name']
+                            expiring = int(np.random.choice([0,1]))
 
         else:
             own = 1
@@ -189,7 +196,7 @@ def get_rich_recipe(zip_code, recipe_id, existing_ingredient_types):
         rich_ingredient['availability'] = available_in_store
         rich_ingredient['available_store_name'] = available_store_name
         rich_ingredient['own'] = own
-        rich_ingredient['name'] = ingredient.name
+        rich_ingredient['name'] = str(ingredient.name)
         rich_ingredient['expiring'] = expiring
         rich_ingredients.append(rich_ingredient)
     return recipe_name, rich_ingredients, recipe_instructions, recipe_image

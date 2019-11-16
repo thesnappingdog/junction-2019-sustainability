@@ -13,18 +13,18 @@ def angular_index():
 # Route for requesting rich recipe with recipe ID in url
 @app.route('/api/get_rich_recipe/<recipe_id>', methods=['GET']) #Change this to POST and payload in the body once working frontend
 def rich_recipe_json(recipe_id):
-    zip_code = '00180'
-    existing_ingredient_ids = ['1', '2', '3']
+    zip_code = '00180' #Get this from POST body
+    existing_ingredient_ids = ['1', '2', '3'] #Get this from POST body
     name, rich_ingredients, instructions, image = get_rich_recipe(zip_code, int(recipe_id), existing_ingredient_ids)
-    return jsonify({'data': {
+    return jsonify({'data': [{
         'id': recipe_id,
         'name': name,
         'ingredients': rich_ingredients,
         'instructions': instructions,
         'image': image
+        }]
     }
-    }
-    )
+)
 
 # Route for requesting recipes based on items of user
 @app.route('/api/recipe_suggestions/<items>', methods=['GET']) #Change this to POST and payload in the body once working frontend
