@@ -5,7 +5,11 @@
     font-size: x-large;
     font-weight: bold;
 
-    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-title {
+      color:#f86800;
+      -webkit-text-stroke-width: 0.5px;
+      -webkit-text-stroke-color: white;
+    }
     .mat-expansion-panel-header-description,
     .mat-expansion-indicator {
       margin: 12px 0 12px;
