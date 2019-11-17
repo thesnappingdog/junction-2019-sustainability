@@ -9,15 +9,23 @@
     text-align: center;
   }
 
+  .action-buttons {
+    position: absolute;
+    width: 90%;
+    height: 40%;
+    top: 60%;
+    left: 0;
+    padding: 5%;
+  }
+
   .nav-buttons {
     display: flex;
     justify-content: space-evenly;
+    margin: 0 0 10% 0;
   }
 
-  .skip-button {
-    a {
-      color: gray;
-      text-decoration: none;
-    }
+  .skip-button  {
+    color: gray;
+    text-decoration: none;
   }
 }

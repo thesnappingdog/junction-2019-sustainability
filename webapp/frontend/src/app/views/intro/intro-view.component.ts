@@ -10,7 +10,7 @@ export class IntroViewComponent implements OnInit {
 
   public imageUrl: string;
   public title: string;
-  private cardIndex: number;
+  public cardIndex: number;
   private cards = [
     {
       'image_url': '/assets/example_action_2.png',

@@ -37,7 +37,7 @@ export class StartViewComponent implements OnInit, OnDestroy {
     this.recentlyBoughtIngredientsChangedRef = this.ingredientsService.recentlyBoughtChanged.subscribe( (recentlyBought) => {
       this.suggestedIngredients = recentlyBought;
     });
-    this.selectedIngredients  = this.ingredientsService.getSelected();
+    this.selectedIngredients  = this.ingredientsService.getSelectedExisting();
     this.suggestedIngredients = this.ingredientsService.getRecentlyBought();
   }
 
@@ -56,7 +56,7 @@ export class StartViewComponent implements OnInit, OnDestroy {
     if (input) {
       input.value = '';
     }
-    this.ingredientsService.setSelected(this.selectedIngredients);
+    this.ingredientsService.setSelectedExisting(this.selectedIngredients);
   }
 
   removeSelected(ingredient: Ingredient): void {
@@ -64,17 +64,16 @@ export class StartViewComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.selectedIngredients.splice(index, 1);
     }
-    this.ingredientsService.setSelected(this.selectedIngredients);
+    this.ingredientsService.setSelectedExisting(this.selectedIngredients);
   }
 
   addSuggested(ingredient: Ingredient) {
-    console.log('adding', ingredient)
     this.selectedIngredients.push(ingredient);
     const index = this.suggestedIngredients.indexOf(ingredient);
     if (index >= 0) {
       this.suggestedIngredients.splice(index, 1);
     }
-    this.ingredientsService.setSelected(this.selectedIngredients);
+    this.ingredientsService.setSelectedExisting(this.selectedIngredients);
   }
 
   proceedToRecipeSuggestions() {

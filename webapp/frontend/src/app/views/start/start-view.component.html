@@ -1,11 +1,11 @@
 <div class="view">
   <!-- Input field for typing -->  
   <!-- Selected existing ingredients -->
-  <div>
+  <div class="selected-chips-fields">
     I already have these ...
     <mat-form-field class="selected-chip-list">
       <mat-chip-list #chipList aria-label="Fruit selection">
-        <mat-chip *ngFor="let ingredient of selectedIngredients" (click)="removeSelected(ingredient)">
+        <mat-chip *ngFor="let ingredient of selectedIngredients" [selectable]="true" (click)="removeSelected(ingredient)">
                   {{ingredient.name}}
           <mat-icon>cancel</mat-icon>
         </mat-chip>
@@ -19,7 +19,7 @@
   </div>
 
   <!-- Ingredient suggestions -->
-  <div>
+  <div class="suggested-chips-fields">
     Items I have recently bought ...
     <mat-chip-list #chipList aria-label="Fruit selection">
       <mat-chip *ngFor="let ingredient of suggestedIngredients" (click)="addSuggested(ingredient)">

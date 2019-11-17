@@ -21,6 +21,11 @@ export class Recipe {
     this.instructions = instructions;
   }
 
+  getInstructionSteps(): string[] {
+    if (!this.instructions) return [];
+    return this.instructions.split('#').map( step => step.trim()).filter(entry => /\S/.test(entry));
+  }
+
   static fromJSON( obj ) {
     let ingredients: Ingredient[] = [];
     obj['ingredients'].forEach( item => {

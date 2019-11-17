@@ -64,7 +64,7 @@ export class RecipeService {
   async loadRecipeSuggestions() {
     this.loadingSuggestions = true;
     // --- START: Angular frontend development ---
-    if (window.location.host == 'localhost:4200') await this.wait(1250);
+    if (window.location.host == 'localhost:4200') await this.wait(750);
     // --- END: Angular frontend development ---
     this.fetchRecipeSuggestions().toPromise().then(
       resp => {
@@ -93,7 +93,7 @@ export class RecipeService {
       })
     };
     let params = {
-      'ingredients': this.ingredientsService.selected
+      'ingredients': this.ingredientsService.selectedExisting
     }
     // --- START: Angular frontend development ---
     if (window.location.host == 'localhost:4200') {

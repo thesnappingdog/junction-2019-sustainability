@@ -8,42 +8,42 @@
           "amount": "1/2", 
           "availability": 0, 
           "name": "Soijakastike", 
-          "type": "6953", 
+          "id": "6953", 
           "unit": "dl"
         }, 
         {
           "amount": "1/2", 
           "availability": 0, 
           "name": "Riisiviinietikka", 
-          "type": "6740", 
+          "id": "6740", 
           "unit": "dl"
         }, 
         {
           "amount": "2", 
           "availability": 0, 
           "name": "Ruokokidesokeri", 
-          "type": "6795", 
+          "id": "6795", 
           "unit": "rkl"
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Valkosipuli, tuore", 
-          "type": "15809", 
+          "id": "15809", 
           "unit": ""
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Inkiv\u00e4\u00e4ri, jauhettu", 
-          "type": "5566", 
+          "id": "5566", 
           "unit": "tl"
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Maissit\u00e4rkkelysjauho", 
-          "type": "6035", 
+          "id": "6035", 
           "unit": "tl"
         }
       ],
@@ -58,42 +58,42 @@
           "amount": "1/2", 
           "availability": 0, 
           "name": "Soijakastike", 
-          "type": "6953", 
+          "id": "6953", 
           "unit": "dl"
         }, 
         {
           "amount": "1/2", 
           "availability": 0, 
           "name": "Riisiviinietikka", 
-          "type": "6740", 
+          "id": "6740", 
           "unit": "dl"
         }, 
         {
           "amount": "2", 
           "availability": 0, 
           "name": "Ruokokidesokeri", 
-          "type": "6795", 
+          "id": "6795", 
           "unit": "rkl"
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Valkosipuli, tuore", 
-          "type": "15809", 
+          "id": "15809", 
           "unit": ""
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Inkiv\u00e4\u00e4ri, jauhettu", 
-          "type": "5566", 
+          "id": "5566", 
           "unit": "tl"
         }, 
         {
           "amount": "1", 
           "availability": 0, 
           "name": "Maissit\u00e4rkkelysjauho", 
-          "type": "6035", 
+          "id": "6035", 
           "unit": "tl"
         }
       ],

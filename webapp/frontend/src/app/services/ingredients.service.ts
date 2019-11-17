@@ -10,7 +10,7 @@ import { Ingredient } from '../classes/ingredient';
 })
 export class IngredientsService {
   public recentlyBought: Ingredient[];
-  public selected: Ingredient[];
+  public selectedExisting: Ingredient[];
   
   private _recentlyBoughtChanged: Subject<Ingredient[]> = new Subject<Ingredient[]>();
   public recentlyBoughtChanged = this._recentlyBoughtChanged.asObservable();
@@ -19,16 +19,16 @@ export class IngredientsService {
     private http: HttpClient
   ) {
     this.recentlyBought = [];
-    this.selected = [];
+    this.selectedExisting = [];
   }
 
-  // For starting over with previously selected
-  getSelected(): Ingredient[] {
-    return this.selected;
+  // For starting over with previously selected existing ones
+  getSelectedExisting(): Ingredient[] {
+    return this.selectedExisting;
   }
 
-  setSelected(ingredients: Ingredient[]) {
-    this.selected = ingredients;
+  setSelectedExisting(ingredients: Ingredient[]) {
+    this.selectedExisting = ingredients;
   }
 
   // For ingredient suggestions

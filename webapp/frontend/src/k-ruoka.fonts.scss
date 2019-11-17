@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "SkattaSans";
+  font-display: block;
+  src: url(/assets/fonts/SkattaSansRegular.woff2) format("woff2"), url(/assets/fonts/SkattaSansRegular.woff) format("woff"), url(/assets/fonts/SkattaSansRegular.ttf) format("truetype"), url(/assets/fonts/SkattaSansRegular.svg#SkattaSansRegular) format("svg")
+}
+@font-face {
+  font-family: "SkattaSans";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansBold.woff2) format("woff2"), url(/assets/fonts/SkattaSansBold.woff) format("woff"), url(/assets/fonts/SkattaSansBold.ttf) format("truetype"), url(/assets/fonts/SkattaSansBold.svg#SkattaSansBold) format("svg");
+  font-weight: 700
+}
+@font-face {
+  font-family: "SkattaSans";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansBlack.woff2) format("woff2"), url(/assets/fonts/SkattaSansBlack.woff) format("woff"), url(/assets/fonts/SkattaSansBlack.ttf) format("truetype"), url(/assets/fonts/SkattaSansBlack.svg#SkattaSansBlack) format("svg");
+  font-weight: 900
+}
+@font-face {
+  font-family: "SkattaSans";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansMedium.woff2) format("woff2"), url(/assets/fonts/SkattaSansMedium.woff) format("woff"), url(/assets/fonts/SkattaSansMedium.ttf) format("truetype"), url(/assets/fonts/SkattaSansMedium.svg#SkattaSansMedium) format("svg");
+  font-weight: 500
+}
+@font-face {
+  font-family: "SkattaSansCondensed";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansCondensedRegular.woff2) format("woff2"), url(/assets/fonts/SkattaSansCondensedRegular.woff) format("woff"), url(/assets/fonts/SkattaSansCondensedRegular.ttf) format("truetype"), url(/assets/fonts/SkattaSansCondensedRegular.svg#SkattaSansCondensedRegular) format("svg");
+  font-stretch: condensed
+}
+@font-face {
+  font-family: "SkattaSansCondensed";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansCondensedBold.woff2) format("woff2"), url(/assets/fonts/SkattaSansCondensedBold.woff) format("woff"), url(/assets/fonts/SkattaSansCondensedBold.ttf) format("truetype"), url(/assets/fonts/SkattaSansCondensedBold.svg#SkattaSansCondensedBold) format("svg");
+  font-weight: 700;
+  font-stretch: condensed
+}
+@font-face {
+  font-family: "SkattaSansCondensed";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansCondensedBlack.woff2) format("woff2"), url(/assets/fonts/SkattaSansCondensedBlack.woff) format("woff"), url(/assets/fonts/SkattaSansCondensedBlack.ttf) format("truetype"), url(/assets/fonts/SkattaSansCondensedBlack.svg#SkattaSansCondensedBlack) format("svg");
+  font-weight: 900;
+  font-stretch: condensed
+}
+@font-face {
+  font-family: "SkattaSansCondensed";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansCondensedMedium.woff2) format("woff2"), url(/assets/fonts/SkattaSansCondensedMedium.woff) format("woff"), url(/assets/fonts/SkattaSansCondensedMedium.ttf) format("truetype"), url(/assets/fonts/SkattaSansCondensedMedium.svg#SkattaSansCondensedMedium) format("svg");
+  font-weight: 500;
+  font-stretch: condensed
+}
+@font-face {
+  font-family: "SkattaSansLight";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansLight.woff2) format("woff2"), url(/assets/fonts/SkattaSansLight.woff) format("woff"), url(/assets/fonts/SkattaSansLight.ttf) format("truetype"), url(/assets/fonts/SkattaSansLight.svg#SkattaSansLight) format("svg")
+}
+@font-face {
+  font-family: "SkattaSansLightItalic";
+  font-display:block;
+  src: url(/assets/fonts/SkattaSansLightItalic.woff2) format("woff2"), url(/assets/fonts/SkattaSansLightItalic.woff) format("woff"), url(/assets/fonts/SkattaSansLightItalic.ttf) format("truetype"), url(/assets/fonts/SkattaSansLightItalic.svg#SkattaSansLightItalic) format("svg")
+}
+@font-face {
+  font-family: "SkattaScriptBold";
+  font-display: block;
+  src: url(/assets/fonts/SkattaScriptBold.woff2) format("woff2"), url(/assets/fonts/SkattaScriptBold.woff) format("woff"), url(/assets/fonts/SkattaScriptBold.ttf) format("truetype"), url(/assets/fonts/SkattaScriptBold.svg#SkattaScriptBold) format("svg")
+}

@@ -1,3 +1,39 @@
-.recipe-card-header {
-  background-size: cover;
+:host ::ng-deep {
+  .recipe-card-header {
+    background-size: cover;
+    align-items: flex-end;
+    font-size: x-large;
+    font-weight: bold;
+
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description,
+    .mat-expansion-indicator {
+      margin: 12px 0 12px;
+    }
+  }
+
+  .inner-content {
+    display: flex;
+    position: relative;
+    margin-top: 12px;
+  }
+
+  .instructions-container {
+
+  }
+
+  .ingredients-table {
+    thead {
+      display: none;
+    }
+
+    .mat-cell {
+      font-size: larger;
+    }
+
+    .mat-checkbox-inner-container {
+      height: 24px;
+      width: 24px;
+    }
+  }
 }

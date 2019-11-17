@@ -1,7 +1,6 @@
 .view {
   background: #fff;
   position: relative;
-  padding: 5%;
 
   * {
     margin-left: auto;
@@ -19,6 +18,33 @@
 
   mat-chip {
     cursor: pointer;
+  }
+
+  .selected-chips-fields {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    top: 10%;
+    left: 0;
+    padding: 10%;
+  }
+
+  .suggested-chips-fields {
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    top: 35%;
+    left: 0;
+    padding: 10%;
+  }
+
+  .nav-buttons {
+    position: absolute;
+    width: 80%;
+    height: 20%;
+    top: 60%;
+    left: 0;
+    padding: 10%;
   }
 
   .skip-button {

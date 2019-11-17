@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
 // import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {MatCardModule} from '@angular/material/card';
-// import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 // import {MatStepperModule} from '@angular/material/stepper';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -41,7 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // import {MatSnackBarModule} from '@angular/material/snack-bar';
 // import {MatSortModule} from '@angular/material/sort';
-// import {MatTableModule} from '@angular/material/table';
+import {MatTableModule} from '@angular/material/table';
 // import {MatTabsModule} from '@angular/material/tabs';
 // import {MatToolbarModule} from '@angular/material/toolbar';
 // import {MatTooltipModule} from '@angular/material/tooltip';
@@ -60,13 +60,15 @@ import { ShoppingListViewComponent }  from './views/shopping-list/shopping-list-
 
 // Angular Material modules
 const modules = [
-  MatChipsModule,
   MatButtonModule,
+  MatCheckboxModule,
+  MatChipsModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTableModule
 ];
 
 @NgModule({

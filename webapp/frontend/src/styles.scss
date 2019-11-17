@@ -9,11 +9,44 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$orange-palette: (
+    50 : #feede0,
+    100 : #fdd2b3,
+    200 : #fcb480,
+    300 : #fa954d,
+    400 : #f97f26,
+    500 : #f86800,
+    600 : #f76000,
+    700 : #f65500,
+    800 : #f54b00,
+    900 : #f33a00,
+    A100 : #ffffff,
+    A200 : #ffebe6,
+    A400 : #ffc1b3,
+    A700 : #ffab9a,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$frontend-primary: mat-palette($mat-indigo);
-$frontend-accent: mat-palette($mat-pink, A200, A100, A400);
+$frontend-primary: mat-palette($orange-palette);
+$frontend-accent: mat-palette($mat-indigo, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $frontend-warn: mat-palette($mat-red);
@@ -27,13 +60,15 @@ $frontend-theme: mat-light-theme($frontend-primary, $frontend-accent, $frontend-
 @include angular-material-theme($frontend-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@import './k-ruoka.fonts';
 
 $footer-height: 30px;
 
 html, body {
   height: 100%; overflow: hidden;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; }
+* { font-family: "SkattaSans", Roboto, "Helvetica Neue", sans-serif; }
 
 app-root {
   min-height: 100%;
@@ -51,7 +86,6 @@ router-outlet { // content
 
 .view {
   min-height: 100%;
-  background: yellow;
 }
 
 #footer {
