@@ -27,7 +27,7 @@ export class Recipe {
       ingredients.push(Ingredient.fromJSON(item))
     });
     return new Recipe(
-      obj['id'].toString(),
+      obj['recipe_id'],
       obj['name'],
       obj['image'],
       ingredients,

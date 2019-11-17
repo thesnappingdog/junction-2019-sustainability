@@ -122,7 +122,8 @@ def is_product_available(ean, store):
 
 def infer_recipes(items=None, count=5):
     if items:
-        items = items.split(',')
+        if isinstance(items, str):
+            items = [int(item) for item in items.split(',')]
     else:
         items = [np.random.randint(0,7000)]
     classifier = Classifier()
@@ -154,7 +155,7 @@ def return_rich_inferred_recipes(items):
             'name': str(recipe.name),
             'image': str(recipe.image),
             'instructions': str(recipe.instructions),
-            'ingredients': str(recipe.ingredients)
+            'ingredients': [{'id': str(ingr.id), 'name': str(ingr.name)} for ingr in recipe.ingredients]
         })
     return recipes
 

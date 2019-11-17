@@ -86,7 +86,7 @@ export class RecipeService {
   }
 
   fetchRecipeSuggestions(): Observable<Object> {
-    let url = '/api/get_rich_recipe/';
+    let url = '/api/recipe_suggestions';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

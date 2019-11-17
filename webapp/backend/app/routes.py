@@ -1,5 +1,5 @@
 from app import app, db
-from flask import send_from_directory, jsonify
+from flask import send_from_directory, jsonify, request
 from app.api.api import get_rich_recipe, stores_output, default_items, return_rich_inferred_recipes
 from app.sync_static_assets import drop_and_sync_everything as sync_all
 
