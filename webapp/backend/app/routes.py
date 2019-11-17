@@ -7,6 +7,11 @@ FRONTEND_DIST_DIR = '../../frontend/dist'
 
 
 @app.route('/')
+@app.route('/intro')
+@app.route('/start')
+@app.route('/browse')
+@app.route('/shopping-list')
+@app.route('/user')
 def angular_index():
     return send_from_directory(FRONTEND_DIST_DIR, 'index.html')
 
