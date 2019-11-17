@@ -31,14 +31,14 @@ export class BrowseViewComponent implements OnInit, OnDestroy {
       newSuggestions.forEach( recipe => this.recipeSuggestions.push(recipe));
       this.currentlyLoadingSuggestions = this.recipeService.isLoadingSuggestions();
     });
-
-    // For page reload case, when there's no suggestions
-    if (this.recipeSuggestions.length <= 0 &&
-        !this.recipeService.isLoadingSuggestions()) {
-      this.router.navigate(['/', 'start']);
-    }
-
     this.currentlyLoadingSuggestions = this.recipeService.isLoadingSuggestions();
+    
+    // For page reload case, when there's no suggestions
+    setTimeout(() => {
+      if (this.recipeSuggestions.length <= 0 && !this.recipeService.isLoadingSuggestions()) {
+        this.router.navigate(['/', 'start']);
+      }
+    }, 500);
   }
 
   ngOnDestroy() {
