@@ -120,7 +120,7 @@ def is_product_available(ean, store):
     availability_stores = request_availability(ean)
     return check_availability(availability_stores, store)
 
-def infer_recipes(items=None, count=5):
+def infer_recipes(items=None, count=7):
     if items:
         if isinstance(items, str):
             items = [int(item) for item in items.split(',')]
@@ -135,9 +135,11 @@ def infer_recipes(items=None, count=5):
         else:
             length = np.random.choice(range(1,len(items)))
         infer_items = random.sample(items, length)
-        items_tensor = classifier.mangle_list_of_items_to_tensor(items)
+        if np.random.choice[True, False]:
+            infer_items = [np.random.randint(0,7000)]
+        items_tensor = classifier.mangle_list_of_items_to_tensor(infer_items)
         classifier.init_hidden(1)
-        prediction = classifier(items_tensor, torch.tensor([len(items)]))
+        prediction = classifier(items_tensor, torch.tensor([len(infer_items)]))
         max_ = int(prediction.detach().numpy().argmax(axis=2)[0][0]) #This is the order_id!
         suggestions.append(max_) #Add metadata to recipe once available in DB
 
